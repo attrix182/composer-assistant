@@ -50,7 +50,7 @@ const AIGenerator = ({ onMIDIGenerated }) => {
           key,
           style,
           tempo,
-          generatedNotes
+          generatedNotes: generatedNotes.map(note => typeof note === 'string' ? note : note.note)
         }
       }
       
@@ -140,8 +140,12 @@ const AIGenerator = ({ onMIDIGenerated }) => {
       }).toDestination()
       setSynth(newSynth)
       let now = Tone.now()
+      console.log('Notas a reproducir:', generatedMelody.metadata.generatedNotes)
       generatedMelody.metadata.generatedNotes.forEach((note, i) => {
-        const noteName = `${note}4`
+        // Manejar tanto strings como objetos
+        const noteValue = typeof note === 'string' ? note : note.note
+        const noteName = `${noteValue}4`
+        console.log(`Reproduciendo nota ${i}: ${noteName}`)
         newSynth.triggerAttackRelease(noteName, 60 / tempo, now + i * (60 / tempo), 0.7)
       })
       setTimeout(() => {

@@ -1,62 +1,15 @@
-# Usar Node.js 18 Alpine para menor tamaño
-FROM node:18-alpine AS builder
-
-# Instalar dependencias del sistema
-RUN apk add --no-cache python3 make g++
-
-# Establecer directorio de trabajo
+# Etapa 1: build de React
+FROM node:20 AS build
 WORKDIR /app
-
-# Copiar archivos de dependencias
 COPY package*.json ./
-
-# Instalar TODAS las dependencias (incluyendo devDependencies para el build)
-RUN npm ci
-
-# Copiar código fuente
+RUN npm install
 COPY . .
-
-# Construir la aplicación
 RUN npm run build
 
-# Imagen de producción
-FROM node:18-alpine AS production
-
-# Instalar dependencias mínimas
-RUN apk add --no-cache dumb-init
-
-# Crear usuario no-root para seguridad
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nodejs -u 1001
-
-# Establecer directorio de trabajo
+# Etapa 2: Servir la app con 'serve'
+FROM node:20 AS prod
 WORKDIR /app
-
-# Copiar solo las dependencias de producción
-COPY package*.json ./
-RUN npm ci --only=production && npm cache clean --force
-
-# Copiar código construido y servidor
-COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
-COPY --from=builder --chown=nodejs:nodejs /app/server ./server
-
-# Cambiar al usuario no-root
-USER nodejs
-
-# Exponer puerto
+RUN npm install -g serve
+COPY --from=build /app/dist /app
 EXPOSE 3000
-
-# Variables de entorno para optimización
-ENV NODE_ENV=production
-ENV UV_THREADPOOL_SIZE=4
-ENV NODE_OPTIONS="--max-old-space-size=512"
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD wget --quiet --tries=1 --spider http://localhost:3000/health || exit 1
-
-# Usar dumb-init para manejo correcto de señales
-ENTRYPOINT ["dumb-init", "--"]
-
-# Comando de inicio
-CMD ["node", "server/index.js"] 
+CMD ["serve", "-s", ".", "-l", "3000"] 

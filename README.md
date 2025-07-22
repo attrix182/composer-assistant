@@ -79,16 +79,10 @@ cp env.example .env
 
 2. **Construye y ejecuta con Docker Compose**:
 ```bash
-# Para producción
 docker-compose up -d
-
-# Para desarrollo (con hot reload)
-docker-compose --profile dev up -d
 ```
 
-3. **Accede a la aplicación**:
-   - Producción: `http://localhost:3000`
-   - Desarrollo: `http://localhost:3001`
+3. **Accede a la aplicación** en `http://localhost:3000`
 
 #### Opción 2: Docker Build
 
@@ -107,12 +101,12 @@ docker run -d -p 3000:80 --name composer-assistant composer-assistant
 1. **Conecta tu repositorio** a Coolify
 2. **Configura las variables de entorno** en Coolify:
    - `VITE_GOOGLE_AI_API_KEY`: Tu API key de Google AI
-3. **Usa el Dockerfile.node** incluido en el repositorio (recomendado)
+3. **Usa el Dockerfile** incluido en el repositorio
 4. **Configura el puerto** a 3000
-5. **Configuración adicional en Coolify**:
+5. **Configuración en Coolify**:
    - **Build Command**: `npm run build`
-   - **Start Command**: `node server/index.js`
-   - **Health Check URL**: `/health`
+   - **Start Command**: `serve -s . -l 3000`
+   - **No necesitas health check** (serve maneja esto automáticamente)
 6. **Despliega** la aplicación
 
 #### 🔧 Solución de problemas en Coolify:
@@ -121,8 +115,7 @@ Si obtienes "Bad Gateway":
 1. **Verifica los logs** en Coolify
 2. **Asegúrate** de que el puerto esté configurado como 3000
 3. **Revisa** que las variables de entorno estén configuradas
-4. **Usa el Dockerfile.node** (recomendado) en lugar del Dockerfile con Nginx
-5. **Verifica** que el health check esté en `/health`
+4. **Verifica** que el build se complete correctamente
 
 ### 🔧 Variables de Entorno para Producción
 
