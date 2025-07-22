@@ -79,10 +79,16 @@ cp env.example .env
 
 2. **Construye y ejecuta con Docker Compose**:
 ```bash
+# Para producción
 docker-compose up -d
+
+# Para desarrollo (con hot reload)
+docker-compose --profile dev up -d
 ```
 
-3. **Accede a la aplicación** en `http://localhost:3000`
+3. **Accede a la aplicación**:
+   - Producción: `http://localhost:3000`
+   - Desarrollo: `http://localhost:3001`
 
 #### Opción 2: Docker Build
 

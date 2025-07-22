@@ -7,8 +7,8 @@ WORKDIR /app
 # Copiar archivos de dependencias
 COPY package*.json ./
 
-# Instalar dependencias
-RUN npm ci --only=production
+# Instalar todas las dependencias (incluyendo devDependencies para build)
+RUN npm ci
 
 # Copiar código fuente
 COPY . .
@@ -18,6 +18,9 @@ RUN npm run build
 
 # Stage de producción
 FROM nginx:alpine AS production
+
+# Instalar wget para health checks
+RUN apk add --no-cache wget
 
 # Copiar configuración personalizada de nginx
 COPY nginx.conf /etc/nginx/nginx.conf
