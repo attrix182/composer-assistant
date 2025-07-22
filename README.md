@@ -107,9 +107,22 @@ docker run -d -p 3000:80 --name composer-assistant composer-assistant
 1. **Conecta tu repositorio** a Coolify
 2. **Configura las variables de entorno** en Coolify:
    - `VITE_GOOGLE_AI_API_KEY`: Tu API key de Google AI
-3. **Usa el Dockerfile** incluido en el repositorio
+3. **Usa el Dockerfile.node** incluido en el repositorio (recomendado)
 4. **Configura el puerto** a 3000
-5. **Despliega** la aplicación
+5. **Configuración adicional en Coolify**:
+   - **Build Command**: `npm run build`
+   - **Start Command**: `node server/index.js`
+   - **Health Check URL**: `/health`
+6. **Despliega** la aplicación
+
+#### 🔧 Solución de problemas en Coolify:
+
+Si obtienes "Bad Gateway":
+1. **Verifica los logs** en Coolify
+2. **Asegúrate** de que el puerto esté configurado como 3000
+3. **Revisa** que las variables de entorno estén configuradas
+4. **Usa el Dockerfile.node** (recomendado) en lugar del Dockerfile con Nginx
+5. **Verifica** que el health check esté en `/health`
 
 ### 🔧 Variables de Entorno para Producción
 

@@ -4,18 +4,18 @@ services:
   composer-assistant:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.node
     container_name: composer-assistant
     restart: unless-stopped
     ports:
-      - "3000:80"
+      - "3000:3000"
     environment:
       - NODE_ENV=production
     volumes:
       # Volumen para logs de nginx
       - nginx-logs:/var/log/nginx
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
