@@ -1,4 +1,4 @@
-# Composer Assistant 🎵
+# Composer Assistant APP 🎵
 
 Una herramienta web moderna para composición musical que te ayuda a generar pistas MIDI, escalas, progresiones de acordes y melodías con inteligencia artificial.
 
