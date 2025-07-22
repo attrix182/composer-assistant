@@ -31,6 +31,15 @@ Una herramienta web moderna para composición musical que te ayuda a generar pis
 - **Información detallada**: Metadatos de la pista generada
 - **Exportación MIDI**: Descarga archivos MIDI para usar en tu DAW
 
+### 🎹 Controlador MIDI
+- **Integración con hardware**: Conecta tu Arturia Minilab 3
+- **Detección automática**: Encuentra dispositivos MIDI automáticamente
+- **Grabación en tiempo real**: Graba tus interpretaciones
+- **Reproducción de grabaciones**: Escucha lo que grabaste
+- **Exportación a MIDI**: Convierte grabaciones a archivos MIDI
+- **Control de octava y velocidad**: Ajusta parámetros en tiempo real
+- **Mapeo de controles**: Usa mod wheel, volume, pan
+
 ## 🚀 Instalación
 
 ### Desarrollo Local
