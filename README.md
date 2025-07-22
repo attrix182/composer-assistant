@@ -33,6 +33,8 @@ Una herramienta web moderna para composición musical que te ayuda a generar pis
 
 ## 🚀 Instalación
 
+### Desarrollo Local
+
 1. **Clona el repositorio**:
 ```bash
 git clone https://github.com/tu-usuario/composer-assistant.git
@@ -64,6 +66,55 @@ npm run dev
 ```
 
 6. **Abre tu navegador** en `http://localhost:3000`
+
+### 🐳 Despliegue con Docker
+
+#### Opción 1: Docker Compose (Recomendado para Coolify)
+
+1. **Configura las variables de entorno**:
+```bash
+cp env.example .env
+# Edita .env con tu API key
+```
+
+2. **Construye y ejecuta con Docker Compose**:
+```bash
+docker-compose up -d
+```
+
+3. **Accede a la aplicación** en `http://localhost:3000`
+
+#### Opción 2: Docker Build
+
+1. **Construye la imagen**:
+```bash
+docker build -t composer-assistant .
+```
+
+2. **Ejecuta el contenedor**:
+```bash
+docker run -d -p 3000:80 --name composer-assistant composer-assistant
+```
+
+### 🌐 Despliegue en Coolify
+
+1. **Conecta tu repositorio** a Coolify
+2. **Configura las variables de entorno** en Coolify:
+   - `VITE_GOOGLE_AI_API_KEY`: Tu API key de Google AI
+3. **Usa el Dockerfile** incluido en el repositorio
+4. **Configura el puerto** a 3000
+5. **Despliega** la aplicación
+
+### 🔧 Variables de Entorno para Producción
+
+```env
+# Google Generative AI API Key
+VITE_GOOGLE_AI_API_KEY=tu_api_key_aqui
+
+# Configuración de la aplicación
+VITE_APP_NAME=Composer Assistant
+VITE_APP_VERSION=1.0.0
+```
 
 ## 🛠️ Tecnologías Utilizadas
 
