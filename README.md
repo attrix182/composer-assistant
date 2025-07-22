@@ -106,7 +106,7 @@ docker run -d -p 3000:80 --name composer-assistant composer-assistant
 5. **Configuración en Coolify**:
    - **Build Command**: `npm run build`
    - **Start Command**: `serve -s . -l 3000`
-   - **No necesitas health check** (serve maneja esto automáticamente)
+   - **Health Check URL**: `http://localhost:3000`
 6. **Despliega** la aplicación
 
 #### 🔧 Solución de problemas en Coolify:
